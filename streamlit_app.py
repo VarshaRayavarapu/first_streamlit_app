@@ -1,9 +1,9 @@
-import Streamlit
+import streamlit
 
-Streamlit.title("My Mom\'s New Healthy Diner")
+streamlit.title("My Mom\'s New Healthy Diner")
 
-Streamlit.header('Breakfast Favourites')
-Streamlit.text(' 🥣 Omega 3 & Blueberry Oatmeal')
-Streamlit.text(' 🥗 Kale, Spinach & Rocket Smoothie')
-Streamlit.text(' 🐔 Hard-Boiled Free-Range Egg')
-Streamlit.text(' 🥑🍞 Avacado Toast')
+streamlit.header('Breakfast Favourites')
+streamlit.text(' 🥣 Omega 3 & Blueberry Oatmeal')
+streamlit.text(' 🥗 Kale, Spinach & Rocket Smoothie')
+streamlit.text(' 🐔 Hard-Boiled Free-Range Egg')
+streamlit.text(' 🥑🍞 Avacado Toast')

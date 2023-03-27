@@ -1,16 +1,5 @@
 import streamlit
 
-import snowflake.connector
-@streamlit.experimental_singleton
-def init_connection():
-    return snowflake.connector.connect(**streamlit.secrets["snowflake"])
-@streamlit.experimental_memo(ttl=600)
-def run_query(query):
-    with conn.cursor() as cur:
-        cur.execute(query)
-        return cur.fetchall()
-
-
 streamlit.title("My Mom\'s New Healthy Diner")
 streamlit.header('Breakfast Favourites')
 streamlit.text(' 🥣 Omega 3 & Blueberry Oatmeal')
@@ -23,7 +12,7 @@ my_fruit_list = pandas.read_csv("https://uni-lab-files.s3.us-west-2.amazonaws.co
 # Display the table on the page.
 my_fruit_list = my_fruit_list.set_index('Fruit')
 streamlit.dataframe(my_fruit_list)
-my_cur.execute("insert into fruit_load_list values ('from streamlit')")
+
 # Let's put a pick list here so they can pick the fruit they want to include 
 fruits_selected=["orange", "strawberries"]
 streamlit.multiselect("Pick some fruits:", list(my_fruit_list.index),fruits_selected)
@@ -43,12 +32,25 @@ fruityvice_normalized = pandas.json_normalize(fruityvice_response.json())
 ##output it the screen as a table
 streamlit.dataframe(fruityvice_normalized)
 
+import snowflake.connector
+@streamlit.experimental_singleton
+def init_connection():
+    return snowflake.connector.connect(**streamlit.secrets["snowflake"])
+@streamlit.experimental_memo(ttl=600)
+def run_query(query):
+    with conn.cursor() as cur:
+        cur.execute(query)
+        return cur.fetchall()
+
 my_cnx = snowflake.connector.connect(**streamlit.secrets["snowflake"])
 my_cur = my_cnx.cursor()
 my_cur.execute("SELECT * from fruit_load_list")
 my_data_rows = my_cur.fetchall()
 streamlit.header("The fruit load list contains:")
 streamlit.dataframe(my_data_rows)
+
+
+
 
 add_my_fruit = streamlit.text_input('What fruit would you like to add?')
 streamlit.write('Thanks for adding ', add_my_fruit)

@@ -33,6 +33,11 @@ import snowflake.connector
 @streamlit.experimental_singleton
 def init_connection():
     return snowflake.connector.connect(**streamlit.secrets["snowflake"])
+@streamlit.experimental_memo(ttl=600)
+def run_query(query):
+    with conn.cursor() as cur:
+        cur.execute(query)
+        return cur.fetchall()
 
 my_cnx = snowflake.connector.connect(**streamlit.secrets["snowflake"])
 my_cur = my_cnx.cursor()

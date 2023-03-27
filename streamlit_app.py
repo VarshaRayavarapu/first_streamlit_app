@@ -33,6 +33,7 @@ import snowflake.connector
 @streamlit.experimental_singleton
 def init_connection():
     return snowflake.connector.connect(**streamlit.secrets["snowflake"])
+conn = init_connection()
   
   
 ##(my_cnx = snowflake.connector.connect(**streamlit.secrets["snowflake"])

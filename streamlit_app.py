@@ -48,8 +48,8 @@ except URLError as e:
 ##output it the screen as a table
 ##streamlit.dataframe(fruityvice_normalized)
 
-#don't un anything past here while wetroublehoot
-streamlit.stop()
+#don't run anything past here while wetroublehoot
+#streamlit.stop()
 
 import snowflake.connector
 @streamlit.experimental_singleton

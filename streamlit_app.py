@@ -2,6 +2,14 @@ import streamlit
 import pandas
 import requests
 import snowflake.connector
+@streamlit.experimental_singleton
+def init_connection():
+    return snowflake.connector.connect(**streamlit.secrets["snowflake"])
+@streamlit.experimental_memo(ttl=600)
+def run_query(query):
+    with conn.cursor() as cur:
+        cur.execute(query)
+        return cur.fetchall()
 from urllib.error import URLError
 streamlit.title("My Mom\'s New Healthy Diner")
 streamlit.header('Breakfast Favourites')
@@ -52,14 +60,7 @@ try:
 #streamlit.stop()
 
 
-@streamlit.experimental_singleton
-def init_connection():
-    return snowflake.connector.connect(**streamlit.secrets["snowflake"])
-@streamlit.experimental_memo(ttl=600)
-def run_query(query):
-    with conn.cursor() as cur:
-        cur.execute(query)
-        return cur.fetchall()
+
 
 streamlit.header("The fruit load list contains:")
 ## Snowflake-related functions

@@ -51,7 +51,7 @@ try:
 #don't run anything past here while wetroublehoot
 #streamlit.stop()
 
-import snowflake.connector
+
 @streamlit.experimental_singleton
 def init_connection():
     return snowflake.connector.connect(**streamlit.secrets["snowflake"])
